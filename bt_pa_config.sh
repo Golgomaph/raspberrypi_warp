@@ -115,7 +115,7 @@ fi
 exc sudo chmod 644 /etc/udev/rules.d/99-com.rules
 
 save_original /etc/bluetooth/main.conf
-exc sudo patch /etc/bluetooth/main.conf << EOT
+#exc sudo patch /etc/bluetooth/main.conf << EOT
 ***************
 *** 7,8 ****
 --- 7,9 ----
