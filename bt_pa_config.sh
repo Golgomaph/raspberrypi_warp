@@ -139,7 +139,7 @@ exc sudo patch /etc/bluetooth/main.conf << EOT
 EOT
 
 save_original /etc/pulse/system.pa
-exc sudo patch /etc/pulse/system.pa << EOT
+#exc sudo patch /etc/pulse/system.pa << EOT
 ***************
 *** 23,25 ****
   .ifexists module-udev-detect.so
