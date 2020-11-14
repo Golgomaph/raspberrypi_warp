@@ -1,370 +1,196 @@
 #!/bin/bash
-# Prompt User for Installation
 
+#The bluetooth device can appear as a number of things.
+#Change the line '+ Class = 0x200414' below to one of the following classes;
+# 0x200418 - Headphones
+# 0x200414 - Loudspeaker (default)
+# 0x200420 - Car Audio
+# 0x200434 - Car audio, Loudspeaker
+# 0x200438 - Car Audio, Headphones
+#
+# All of the above classes show the headphone icon on iOS when connected.
+# If you wish to not have that icon then use one of the following;
+# 0x20041C - Headphones, Portable Audio / Portable Audio
+# 0x20043C - Headphones, Portable Audio, Car audio / Portable Audio, Car audio
 
-currentDir=$(
-  cd $(dirname "$0")
-  pwd
-) 
-
-SSPARI_PATH=$currentDir 
-export SSPARI_PATH
-SSPARI_BACKUP_PATH="$SSPARI_PATH/backup_files"
-export SSPARI_BACKUP_PATH
-touch "$SSPARI_BACKUP_PATH/files"
-if [ $SUDO_USER ]; 
+if [ -z "$BluetoothName" ]
+then
+ read -p "Bluetooth device name: " BluetoothName
+fi
+if [ -z "$exc" ]
 then 
-	user=$SUDO_USER;echo 
-else 
-	echo "Must be run as root user!!" 
-	exit 1 
+    source functions.sh
+    source dependencies.sh
 fi
 
-cd "$currentDir"
-chmod -R 777 .
-# Set up file-based logging
-exec 1> >(tee install.log)
-source functions.sh
-source dependencies.sh
-restore_originals
-# Add Environment Variables, used for uninstallation
-HOME_PROF="/home/$user/.profile"
-save_original $HOME_PROF
-echo "export SSPARI_PATH=$SSPARI_PATH" >> "/home/$user/.profile"
-echo "export SSPARI_BACKUP_PATH=$SSPARI_PATH/backup_files" >> "/home/$user/.profile"
 
+exc sudo cp usr/local/bin/volume-watcher.py /usr/local/bin/volume-watcher.py
+exc sudo chmod +x /usr/local/bin/volume-watcher.py
+exc sudo cp lib/systemd/system/volume-watcher.service /lib/systemd/system/volume-watcher.service
+exc sudo systemctl enable volume-watcher
+exc cd `dirname $0`
 
+sudo echo "PRETTY_HOSTNAME=$BluetoothName" >> /tmp/machine-info
+exc tst sudo cp /tmp/machine-info /etc
 
-log "Select Your Install Options"
-# Begins Logging
+save_original /etc/init.d/pulseaudio
+exc sudo cp init.d/pulseaudio /etc/init.d/pulseaudio
+exc sudo chmod +x /etc/init.d/pulseaudio
+exc sudo update-rc.d pulseaudio defaults
 
-installlog "1. Install the Raspberry Pi Audio Receiver Car Installation"
-installlog "2. Install the Raspberry Pi Audio Receiver Home Installation"
-installlog "3. Install the Raspberry Pi Network Without Internet Installation (For teaching!)"
-installlog "4. Install the Bluetooth Only Installation"
-installlog "5. Install the Snapcast Installation (BETA), choose from Snapcast Server, Client, or Both (Requires Minor Configuration)"
-installlog "6. Install a Custom Raspberry Pi Audio Receiver"
+save_original /etc/init.d/bluetooth
+exc sudo cp init.d/bluetooth /etc/init.d/bluetooth
+exc sudo chmod +x /etc/init.d/bluetooth
+exc sudo update-rc.d bluetooth defaults
 
-Install="0"
-while true
-do
-	read -p "Which installation would you like to choose? (1/2/3/4/5/6) : " Install
-	case "$Install" in
-	1)
-	# Car Installation - Previously Raspberry Pi Audio Receiver Install Car Install
-		AirPlay="y"
-		Bluetooth="y"
-		AP="y"
-		Kodi="y"
-		Lirc="y"
-		SoundCardInstall="y"
-		GMedia="n"
-		SNAPCAST="n"
-		break
-	;;
-	2)
-	# Home Installation - Previously Raspberry Pi Audio Receiver Install
-		AirPlay="y"
-		Bluetooth="y"
-		AP="n"
-		Kodi="y"
-		Lirc="y"
-		SoundCardInstall="y"
-		GMedia="y"
-		SNAPCAST="n"
-		break
-	;;
-	3)
-	# Access Point Install - Previously Network Without Internet
-		AirPlay="n"
-		Bluetooth="n"
-		AP="y"
-		Kodi="n"
-		Lirc="n"
-		GMedia="n"
-		SNAPCAST="n"
-		break
-	;;
-	4)
-		AirPlay="n"
-		Bluetooth="y"
-		AP="n"
-		Kodi="n"
-		Lirc="n"
-		GMedia="n"
-		SNAPCAST="n"
-		SoundCardInstall="n"
-		break
-	;;
-	5)
-	# Custom Install - Allows Users to Choose Installation of various features.
-	# Further allowing the use of this project with other ideas aside from Audio Receivers.
-		AirPlay="y"
-		Bluetooth="y"
-		AP="n"
-		Kodi="n"
-		Lirc="n"
-		GMedia="n"
-		SNAPCAST="y"
-		SoundCardInstall="y"
-		break
-	;;
-	6)
-		SNAPCAST="n"
-		YesNo "Do you want to install SnapCast? (y/n): " && SNAPCAST="y"
-		# Prompts the User to use AirPlay for Streaming (aka shairport-sync)
-		AirPlay="n"
-		YesNo "Do you want AirPlay Enabled? (y/n) : " && AirPlay="y"
-		# Prompts the User to use Bluetooth for Streaming (aka A2DP)
-		Bluetooth="n"
-		YesNo "Do you want Bluetooth A2DP Enabled? (y/n) : " && Bluetooth="y"
-		# Prompts the User to use the Raspberry Pi as an Access Point to create a network
-		# (needed for AirPlay when no existing network exists)
-		AP="n"
-		YesNo "Do you want to setup as an Access Point? (Necessary for AirPlay, in location without a Wireless Network) (y/n) : " && AP="y"
-		# Prompts the User to use Kodi as a GUI for a Media Center
-		Kodi="n"
-		YesNo "Do you want Kodi installed? (y/n) : " && Kodi="y"
-		# Prompts the User to use Lirc for Infrared Remote Support
-		# (matricom IR remote already setup for use with Kodi)
-		Lirc="n"
-		YesNo "Do you want to use infrared remotes? (y/n) : " && Lirc="y"
-		SoundCardInstall="n"
-		YesNo "Do you want to use a Sound Card? (y/n) : " && SoundCardInstall="y"
-		GMedia="n"
-		YesNo "Do you want to setup device as a UPnP Renderer? (y/n) : " && GMedia="y"
-		break
-	;;
-	*)
-		echo "Please choose a valid choice"
-	esac
-done
-
-if [ "$SNAPCAST" = "y" ]
+save_original /etc/init.d/bluetooth-agent
+if [ "$VOL_USER" = "\"arm\"" ]
 then
-	while true
-	do
-		read -p "Would you like to install SnapCast as a Server(s), Client(c), or both (b)?: (s/c/b) " SNAPCAST
-		case "$SNAPCAST" in
-		[bB]*) SNAPCAST="b"; break;
-		;;
-		[cC]*) SNAPCAST="c"; break;
-		;;
-		[sS]*) SNAPCAST="s"; break;
-		;;
-		*) echo "Please enter a valid choice";
-		;;
-		esac
-	done
-	while true
-	do
-		read -p "Would you like to install Librespot (Warning: No Longer Maintained, install time: long) (y/n): " LIBRESPOT
-		case "$LIBRESPOT" in
-		[yY]*) LIBRESPOT="y"; break;
-		;;
-		[nN]*) LIBRESPOT="n"; break;
-		;;
-		*) echo "Please enter a valid choice";
-		;;
-		esac
-	done
-fi
-# Prompts the User to check whether or not to use individual names for the chosen devices
-SameName="n"
-YesNo "Do you want all the Devices to use the same name? (y/n) : " && SameName="y"
-if [ "$SameName" = "y" ]
-then
-	# Asks for All Devices Identical Name
-	read -p "Device name: " MYNAME
-	APName=$MYNAME
-	BluetoothName=$MYNAME
-	AirPlayName=$MYNAME
-	GMediaName=$MYNAME
-	SNAPNAME=$MYNAME
-elif [ "$SameName" = "n" ]
-then
-	# Asks for Bluetooth Device Name
-	if [ "$Bluetooth" = "y" ]
-	then
-		read -p "Bluetooth Device Name: " BluetoothName
-	fi
-	# Asks for AirPlay Device Name
-	if [ "$AirPlay" = "y" ]
-	then
-		read -p "AirPlay Device Name: " AirPlayName
-	fi
-	# Asks for Access Point Device Name
-	if [ "$AP" = "y" ]
-	then
-		read -p "Access Point Device Name: " APName
-	fi
-	if [ "$GMedia" = "y" ]
-	then
-		read -p "UPnP Device Name: " GMediaName
-	fi
-	if [ "$SNAPCAST" != "n" ]
-	then
-	        read -p "Snapcast Device Name: " SNAPNAME
-        fi
-fi
-
-if [ "$AP" = "y" ]
-then
-	# Asks for the Access Point Password
-	read -p "Device WiFi Password: " WIFIPASS
-fi
-
-if [ "$AirPlay" = "y" ]
-then
-	AirPlaySecured="n"
-	AirPlayPass=""
-	# Asks user if AirPlay password should be set
-	YesNo "Do you want to use an AirPlay password? (y/n) : " && AirPlaySecured="y"
-	# Prompts user for AirPlay password
-	if [ "$AirPlaySecured" = "y" ]
-	then
-		read -p "Device AirPlay password: " AirPlayPass
-	fi
-fi
-
-if [ "$SoundCardInstall" = "y" ]
-then
-	installlog "0. No Sound Card"
-	installlog "1. HifiBerry DAC Light"
-	installlog "2. HifiBerry DAC Standard/Pro"
-	installlog "3. HifiBerry Digi+"
-	installlog "4. Hifiberry Amp+"
-	installlog "5. Pi-IQaudIO DAC"
-	installlog "6. Pi-IQaudIO DAC+, Pi-IQaudIO DACZero, Pi-IQaudIO DAC PRO"
-	installlog "7. Pi-IQaudIO DigiAMP"
-	installlog "8. Pi-IQaudIO Digi+"
-	installlog "9. USB Sound Card"
-	installlog "10. JustBoom DAC and AMP Cards"
-	installlog "11. JustBoom Digi Cards"
-	SoundCard="SoundCard"
-	while true
-	do
-		read -p "Which Sound Card are you using? (0/1/2/3/4/5/6/7/8/9/10/11) : " SoundCard
-		case "$SoundCard" in
-		[0-9]|10|11)
-			break
-		;;
-		*)
-			echo "Please enter a valid choice"
-		;;
-		esac
-	done
+	exc sudo cp init.d/bluetooth-agent-vol /etc/init.d/bluetooth-agent
 else
-	SoundCard="0"
+	exc sudo cp init.d/bluetooth-agent /etc/init.d/bluetooth-agent
 fi
+exc sudo chmod +x /etc/init.d/bluetooth-agent
+exc sudo update-rc.d bluetooth-agent defaults
 
-chmod +x ./*.sh
-# Updates and Upgrades the Raspberry Pi
+exc sudo cp usr/local/bin/bluez-udev /usr/local/bin
+exc sudo chmod 755 /usr/local/bin/bluez-udev
 
-log "Updating via Apt-Get"
-apt-get update -y &> /dev/null
-log "Upgrading via Apt-Get"
-apt-get upgrade -y &> /dev/null
+exc sudo cp usr/local/bin/simple-agent.autotrust /usr/local/bin
+exc sudo chmod 755 /usr/local/bin/simple-agent.autotrust
 
+exc sudo cp usr/local/bin/say.sh /usr/local/bin
+exc sudo chmod 755 /usr/local/bin/say.sh
 
-# If Bluetooth is Chosen, it installs Bluetooth Dependencies and issues commands for proper configuration
-if [ "$Bluetooth" = "y" ]
+exc sudo cp usr/local/bin/bluezutils.py /usr/local/bin
+
+if [ -d "/etc/pulse" ]
 then
-	export BluetoothName
-	run ./bt_pa_install.sh
-	VOL_USER=`cat /etc/os-release | grep VOLUMIO_ARCH | sed "s/VOLUMIO_ARCH=//"`
-	if [ "$VOL_USER" = "\"arm\"" ]
-	then
-		export VOL_USER
-		apt-get purge bluez -y
-		for _dep in ${VOLUMIO_DEPS[@]}; do
-    			apt_install $_dep;
-		done
-		#exc usermod -aG "sudo" $user
-		vol_groups=`groups $user | sed "s/$user : //"`
-                sed -i "s/$user ALL=(ALL) ALL/$user ALL=(ALL) NOPASSWD: ALL/" /etc/sudoers
-		run su ${user} -c ./bt_pa_config.sh
-		sudo usermod -G "" $user
-		sed -i "s/$user ALL=(ALL) NOPASSWD: ALL/$user ALL=(ALL) ALL/" /etc/sudoers
-		for _dep in ${vol_groups[@]}; do     sudo usermod -aG "$_dep" volumio; done
-	else
-	        run su ${user} -c ./bt_pa_config.sh
-		#for _dep in ${vol_groups[@]}; do     usermod -aG "$_dep" $user; done
-		
-
-	fi
-
+  PA_FILES=`ls /etc/pulse`
+  for _file in ${PA_FILES[@]}; do
+        if [ -e $_file ]; then 
+            if [ -d $_file ]; then 
+               continue
+            else
+               save_original $_file
+            fi
+        fi
+  done
+else
+  exc sudo mkdir /etc/pulse  
 fi
+exc sudo cp etc/pulse/daemon.conf /etc/pulse/daemon.conf
 
-
-if [ "$SoundCardInstall" = "y" ]
-then
-	export SoundCard
-	run ./sound_card_install.sh 
-fi
-
-# If AirPlay is Chosen, it installs AirPlay Dependencies and issues commands for proper configuration
-if [ "$AirPlay" = "y" ]
-then
-	export SoundCard
-	export AirPlayPass
-	export AirPlayName
-	export AirPlay
-	run ./airplay_install.sh 
-	run ./airplay_config.sh 
-fi
-
-
-
-# If Kodi is Chosen, it installs Kodi Dependencies and issues commands for proper configuration
-if [ "$Kodi" = "y" ]
-then
-	run ./kodi_install.sh 
-	run ./kodi_config.sh
-fi
-
-# If Lirc is Chosen, it installs Lirc Dependencies and issues commands for proper configuration
-if [ "$Lirc" = "y" ]
-then
-	run ./lirc_install.sh
-	run ./lirc_config.sh
-fi
-
-# If GMedia is Chosen, it installs  GMedia Dependencies and issues commands for proper configuration
-if [ "$GMedia" = "y" ]
-then
-	export GMediaName
-	run ./gmrender_install.sh
-fi
-
-if [ "$SNAPCAST" = "y" ]
-then
-	export SNAPCAST
-	export SNAPNAME
-	export AirPlay	
-	export LIBRESPOT
-	run su ${user} -c ./snapcast_install.sh
-fi
-
-# If Access Point is Chosen, it installs AP Dependencies and issues commands for proper configuration
-if [ "$AP" = "y" ]
-then
-	export APName
-	export WIFIPASS
-	run ./ap_install.sh 
-	run ./ap_config.sh 
-fi
-
-
-run cat << EOT > install_choices
-Bluetooth = $Bluetooth
-AirPlay = $AirPlay
-AP = $AP
-Kodi = $Kodi
-Lirc = $Lirc
-SoundCardInstall = $SoundCardInstall
-GMedia = $GMedia
-Snapcast = $SNAPCAST
+save_original /boot/config.txt
+exc cat << EOT | sudo tee -a /boot/config.txt
+ # Enable audio (loads snd_bcm2835)
+ dtparam=audio=on
+audio_pwm_mode=2
 EOT
 
-log You should now reboot
+if [ -f /etc/udev/rules.d/99-com.rules ]; then
+save_original /etc/udev/rules.d/99-com.rules
+exc sudo patch /etc/udev/rules.d/99-com.rules << EOT
+***************
+*** 1 ****
+--- 1,2 ----
+  SUBSYSTEM=="input", GROUP="input", MODE="0660"
++ KERNEL=="input[0-9]*", RUN+="/usr/local/bin/bluez-udev"
+EOT
+
+else
+save_original /etc/udev/rules.d/99-com.rules
+exc sudo touch /etc/udev/rules.d/99-com.rules
+exc sudo chmod 666 /etc/udev/rules.d/99-com.rules
+
+save_original /etc/udev/rules.d/99-input.rules
+exc cat  << EOT | sudo tee -a /etc/udev/rules.d/99-input.rules
+SUBSYSTEM=="input", GROUP="input", MODE="0660"
+KERNEL=="input[0-9]*", RUN+="/usr/local/bin/bluez-udev"
+EOT
+
+fi
+
+exc sudo chmod 644 /etc/udev/rules.d/99-com.rules
+
+save_original /etc/bluetooth/main.conf
+exc sudo patch /etc/bluetooth/main.conf << EOT
+***************
+*** 7,8 ****
+--- 7,9 ----
+  #Name = %h-%d
++ Name = ${BT_NAME}
+***************
+*** 11,12 ****
+--- 12,14 ----
+  #Class = 0x000100
++ Class = 0x200414
+***************
+*** 15,17 ****
+  # 0 = disable timer, i.e. stay discoverable forever
+! #DiscoverableTimeout = 0
+--- 17,19 ----
+  # 0 = disable timer, i.e. stay discoverable forever
+! DiscoverableTimeout = 0
+EOT
+
+save_original /etc/pulse/system.pa
+exc sudo patch /etc/pulse/system.pa << EOT
+***************
+*** 23,25 ****
+  .ifexists module-udev-detect.so
+! load-module module-udev-detect
+  .else
+--- 23,26 ----
+  .ifexists module-udev-detect.so
+! #load-module module-udev-detect
+! load-module module-udev-detect tsched=0
+  .else
+***************
+*** 57 ****
+--- 58,63 ----
+  load-module module-position-event-sounds
++
++ ### Automatically load driver modules for Bluetooth hardware
++ .ifexists module-bluetooth-discover.so
++     load-module module-bluetooth-discover
++ .endif
+EOT
+
+
+#sudo service bluetooth start &
+#sudo service pulseaudio start &
+#sudo service bluetooth-agent start &
+# BT FIX
+
+exc remove_dir /etc/pulsebackup
+exc sudo mkdir /etc/pulsebackup
+exc sudo cp /etc/pulse/* /etc/pulsebackup/
+
+exc cd ~
+exc remove_dir pulseaudio
+exc git clone --branch v6.0 https://github.com/pulseaudio/pulseaudio
+
+exc cd ~
+exc remove_dir json-c
+exc git clone https://github.com/json-c/json-c.git
+exc cd json-c
+exc sh autogen.sh
+exc ./configure 
+exc make
+exc sudo make install
+exc cd ~
+exc remove_dir libsndfile
+exc git clone git://github.com/erikd/libsndfile.git
+exc cd libsndfile
+exc ./autogen.sh
+exc ./configure --enable-werror
+exc make
+exc sudo make install
+exc cd ~
+exc cd pulseaudio
+exc sudo ./bootstrap.sh
+exc sudo make
+exc sudo make install
+exc sudo ldconfig
+exc sudo cp /etc/pulsebackup/* /etc/pulse
