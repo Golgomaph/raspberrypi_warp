@@ -179,8 +179,6 @@ exc sudo apt-get install cmake
 exc cd ~
 exc remove_dir json-c
 exc git clone https://github.com/json-c/json-c.git
-exc rm -r ./json-c-build
-exc rm -r ./json-c
 exc mkdir json-c-build
 exc cd json-c-build
 exc cmake ../json-c
