@@ -175,14 +175,12 @@ exc cd ~
 exc remove_dir pulseaudio
 exc git clone --branch v6.0 https://github.com/pulseaudio/pulseaudio
 
-exc sudo apt-get install cmake
 exc cd ~
 exc remove_dir json-c
 exc git clone https://github.com/json-c/json-c.git
-exc chmod +x ./simpleaudio/install.sh
-exc mkdir json-c-build
-exc cd json-c-build
-exc cmake ../json-c
+exc cd json-c
+exc sh autogen.sh
+exc ./configure 
 exc make
 exc sudo make install
 exc cd ~
