@@ -14,6 +14,7 @@ cat <<'EOF' > /etc/bluetooth/main.conf
 [General]
 Class = 0x200414
 DiscoverableTimeout = 0
+
 [Policy]
 AutoEnable=true
 EOF
@@ -33,11 +34,13 @@ cat <<'EOF' > /etc/systemd/system/bt-agent.service
 Description=Bluetooth Agent
 Requires=bluetooth.service
 After=bluetooth.service
+
 [Service]
 ExecStart=/usr/bin/bt-agent --capability=NoInputNoOutput
 RestartSec=5
 Restart=always
 KillSignal=SIGUSR1
+
 [Install]
 WantedBy=multi-user.target
 EOF
@@ -61,6 +64,7 @@ cat <<'EOF' > /etc/systemd/system/bluealsa-aplay.service
 Description=BlueALSA aplay
 Requires=bluealsa.service
 After=bluealsa.service sound.target
+
 [Service]
 Type=simple
 User=root
@@ -68,6 +72,7 @@ ExecStartPre=/bin/sleep 2
 ExecStart=/usr/bin/bluealsa-aplay --pcm-buffer-time=250000 00:00:00:00:00:00
 RestartSec=5
 Restart=always
+
 [Install]
 WantedBy=multi-user.target
 EOF
@@ -78,12 +83,15 @@ systemctl enable bluealsa-aplay
 cat <<'EOF' > /usr/local/bin/bluetooth-udev
 #!/bin/bash
 if [[ ! $NAME =~ ^\"([0-9A-F]{2}[:-]){5}([0-9A-F]{2})\"$ ]]; then exit 0; fi
+
 action=$(expr "$ACTION" : "\([a-zA-Z]\+\).*")
+
 if [ "$action" = "add" ]; then
     bluetoothctl discoverable off
     # disconnect wifi to prevent dropouts
     #ifconfig wlan0 down &
 fi
+
 if [ "$action" = "remove" ]; then
     # reenable wifi
     #ifconfig wlan0 up &
