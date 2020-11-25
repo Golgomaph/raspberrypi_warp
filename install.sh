@@ -9,7 +9,7 @@ sudo hostnamectl set-hostname --pretty "${PRETTY_HOSTNAME:-${CURRENT_PRETTY_HOST
 
 echo "Updating packages"
 sudo apt update
-sudo apt upgrade -y
+#sudo apt upgrade -y
 
 echo "Installing components"
 sudo ./install-bluetooth.sh
