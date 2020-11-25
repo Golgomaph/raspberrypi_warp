@@ -20,3 +20,4 @@ sudo ./install-snapcast-client.sh
 sudo ./install-pivumeter.sh
 sudo ./enable-hifiberry.sh
 sudo ./enable-read-only.sh
+echo "Installation finished. Reboot now.."
