@@ -10,4 +10,4 @@ cd simpleaudio
 sudo ./install.sh
 
 
-Follow instructions..
+FOLLOW INSTRUCTIONS...
