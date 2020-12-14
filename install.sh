@@ -7,6 +7,7 @@ CURRENT_PRETTY_HOSTNAME=$(hostnamectl status --pretty)
 read -p "Pretty hostname [${CURRENT_PRETTY_HOSTNAME:-Raspberry Pi}]: " PRETTY_HOSTNAME
 sudo hostnamectl set-hostname --pretty "${PRETTY_HOSTNAME:-${CURRENT_PRETTY_HOSTNAME:-Raspberry Pi}}"
 
+echo
 echo "Updating packages"
 echo "---------------------------------------------"
 sudo apt update
