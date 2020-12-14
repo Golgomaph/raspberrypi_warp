@@ -2,7 +2,6 @@
 
 if [[ $(id -u) -ne 0 ]] ; then echo "Please run as root" ; exit 1 ; fi
 
-echo
 echo -n "Installing snapclient"
 #echo
 #echo -n "Do you want to use multi-room functionality using more then one RasPi (snapclient})? [y/N] "
