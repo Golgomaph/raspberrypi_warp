@@ -14,30 +14,21 @@ sudo apt upgrade -y
 echo
 echo -n "Do you want to stream audio via bluetooth (BlueALSA)? [y/N] "
 read REPLYBLUETOOTH
-echo
 echo -n "Do you want to stream audio via WiFi-UPnP (gmrender-resurrect)? [y/N] "
 read REPLYUPNP
-echo
 echo -n "Do you want to stream audio via Apple AirPlay (shairport-sync)? [y/N] "
 read REPLYSHAIRPORT
-echo
 echo -n "Do you want to see RasPi as streaming device in Spotify (Raspotify)? [y/N] "
 read REPLYSPOTIFY
-echo
 echo -n "Do you want to use multi-room functionality using more then one RasPi (snapclient})? [y/N] "
 read REPLYSNAPCAST
 
 echo "Installing components"
-if [[ "$REPLYBLUETOOTH" =~ ^(yes|y|Y)$ ]]
-  sudo ./install-bluetooth.sh
-if [[ "$REPLYUPNP" =~ ^(yes|y|Y)$ ]] 
-  sudo ./install-upnp.sh
-if [[ "$REPLYSHAIRPORT" =~ ^(yes|y|Y)$ ]]
-  sudo ./install-shairport.sh
-if [[ "$REPLYSPOTIFY" =~ ^(yes|y|Y)$ ]]
-  sudo ./install-spotify.sh
-if [[ "$REPLYSNAPCAST" =~ ^(yes|y|Y)$ ]]
-  sudo ./install-snapcast-client.sh
+if [[ "$REPLYBLUETOOTH" =~ ^(yes|y|Y)$ ]] then sudo ./install-bluetooth.sh
+if [[ "$REPLYUPNP" =~ ^(yes|y|Y)$ ]] then sudo ./install-upnp.sh
+if [[ "$REPLYSHAIRPORT" =~ ^(yes|y|Y)$ ]] then sudo ./install-shairport.sh
+if [[ "$REPLYSPOTIFY" =~ ^(yes|y|Y)$ ]] then sudo ./install-spotify.sh
+if [[ "$REPLYSNAPCAST" =~ ^(yes|y|Y)$ ]] then sudo ./install-snapcast-client.sh
 
 #sudo ./install-pivumeter.sh
 #sudo ./enable-hifiberry.sh
