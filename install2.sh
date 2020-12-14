@@ -8,8 +8,8 @@ read -p "Pretty hostname [${CURRENT_PRETTY_HOSTNAME:-Raspberry Pi}]: " PRETTY_HO
 sudo hostnamectl set-hostname --pretty "${PRETTY_HOSTNAME:-${CURRENT_PRETTY_HOSTNAME:-Raspberry Pi}}"
 
 echo "Updating packages"
-sudo apt update
-sudo apt upgrade -y
+#sudo apt update
+#sudo apt upgrade -y
 
 echo
 echo -n "Do you want to stream audio via bluetooth (BlueALSA)? [y/N] "
@@ -24,11 +24,11 @@ echo -n "Do you want to use multi-room functionality using more then one RasPi (
 read REPLYSNAPCAST
 
 echo "Installing components"
-if [[ "$REPLYBLUETOOTH" =~ ^(yes|y|Y)$ ]]; then sudo ./install-bluetooth.sh;
-if [[ "$REPLYUPNP" =~ ^(yes|y|Y)$ ]]; then sudo ./install-upnp.sh;
-if [[ "$REPLYSHAIRPORT" =~ ^(yes|y|Y)$ ]]; then sudo ./install-shairport.sh;
-if [[ "$REPLYSPOTIFY" =~ ^(yes|y|Y)$ ]]; then sudo ./install-spotify.sh;
-if [[ "$REPLYSNAPCAST" =~ ^(yes|y|Y)$ ]]; then sudo ./install-snapcast-client.sh;
+if [[ "$REPLYBLUETOOTH" =~ ^(yes|y|Y)$ ]]; then sudo ./install-bluetooth.sh; fi;
+if [[ "$REPLYUPNP" =~ ^(yes|y|Y)$ ]]; then sudo ./install-upnp.sh; fi;
+if [[ "$REPLYSHAIRPORT" =~ ^(yes|y|Y)$ ]]; then sudo ./install-shairport.sh; fi;
+if [[ "$REPLYSPOTIFY" =~ ^(yes|y|Y)$ ]]; then sudo ./install-spotify.sh; fi;
+if [[ "$REPLYSNAPCAST" =~ ^(yes|y|Y)$ ]]; then sudo ./install-snapcast-client.sh; fi;
 
 #sudo ./install-pivumeter.sh
 #sudo ./enable-hifiberry.sh
