@@ -16,15 +16,16 @@ sudo apt upgrade -y
 echo
 echo "Choosing functions"
 echo "---------------------------------------------"
-echo -n "Do you want to stream audio via bluetooth (BlueALSA)? [y/N] "
+echo "Do you want to.."
+echo -n "..stream audio via bluetooth (BlueALSA)? [y/N] "
 read REPLYBLUETOOTH
-echo -n "Do you want to stream audio via WiFi-UPnP (gmrender-resurrect)? [y/N] "
+echo -n "..stream audio via WiFi-UPnP (gmrender-resurrect)? [y/N] "
 read REPLYUPNP
-echo -n "Do you want to stream audio via Apple AirPlay (shairport-sync)? [y/N] "
+echo -n "..stream audio via Apple AirPlay (shairport-sync)? [y/N] "
 read REPLYSHAIRPORT
-echo -n "Do you want to see RasPi as streaming device in Spotify (Raspotify)? [y/N] "
+echo -n "..see RasPi as streaming device in Spotify (Raspotify)? [y/N] "
 read REPLYSPOTIFY
-echo -n "Do you want to use multi-room functionality using more then one RasPi (snapclient})? [y/N] "
+echo -n "..use multi-room functionality using more then one RasPi (snapclient})? [y/N] "
 read REPLYSNAPCAST
 
 echo
