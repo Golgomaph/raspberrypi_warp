@@ -3,11 +3,11 @@
 if [[ $(id -u) -ne 0 ]] ; then echo "Please run as root" ; exit 1 ; fi
 
 echo
-echo -n "----------------------------------------------------------------"
-echo
-echo -n "Do you want to see RasPi as streaming device in Spotify (Raspotify)? [y/N] "
-read REPLY
-if [[ ! "$REPLY" =~ ^(yes|y|Y)$ ]]; then exit 0; fi
+echo -n "Installing raspotify"
+#echo
+#echo -n "Do you want to see RasPi as streaming device in Spotify (Raspotify)? [y/N] "
+#read REPLY
+#if [[ ! "$REPLY" =~ ^(yes|y|Y)$ ]]; then exit 0; fi
 
 curl -sL https://dtcooper.github.io/raspotify/install.sh | sh
 usermod -a -G gpio raspotify
