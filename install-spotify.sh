@@ -2,7 +2,7 @@
 
 if [[ $(id -u) -ne 0 ]] ; then echo "Please run as root" ; exit 1 ; fi
 
-echo -n "Installing raspotify"
+echo "Installing raspotify"
 #echo
 #echo -n "Do you want to see RasPi as streaming device in Spotify (Raspotify)? [y/N] "
 #read REPLY
@@ -19,3 +19,4 @@ DEVICE_NAME="${PRETTY_HOSTNAME}"
 BITRATE="320"
 VOLUME_ARGS="--linear-volume --initial-volume=100"
 EOF
+echo "Finished."
