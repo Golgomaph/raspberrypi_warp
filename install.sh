@@ -8,10 +8,13 @@ read -p "Pretty hostname [${CURRENT_PRETTY_HOSTNAME:-Raspberry Pi}]: " PRETTY_HO
 sudo hostnamectl set-hostname --pretty "${PRETTY_HOSTNAME:-${CURRENT_PRETTY_HOSTNAME:-Raspberry Pi}}"
 
 echo "Updating packages"
+echo "---------------------------------------------"
 sudo apt update
 sudo apt upgrade -y
 
 echo
+echo "Choosing functions"
+echo "---------------------------------------------"
 echo -n "Do you want to stream audio via bluetooth (BlueALSA)? [y/N] "
 read REPLYBLUETOOTH
 echo -n "Do you want to stream audio via WiFi-UPnP (gmrender-resurrect)? [y/N] "
@@ -23,7 +26,9 @@ read REPLYSPOTIFY
 echo -n "Do you want to use multi-room functionality using more then one RasPi (snapclient})? [y/N] "
 read REPLYSNAPCAST
 
+echo
 echo "Installing components"
+echo "---------------------------------------------"
 if [[ "$REPLYBLUETOOTH" =~ ^(yes|y|Y)$ ]]; then sudo ./install-bluetooth.sh; fi;
 if [[ "$REPLYUPNP" =~ ^(yes|y|Y)$ ]]; then sudo ./install-upnp.sh; fi;
 if [[ "$REPLYSHAIRPORT" =~ ^(yes|y|Y)$ ]]; then sudo ./install-shairport.sh; fi;
