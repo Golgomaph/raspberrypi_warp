@@ -2,7 +2,7 @@
 
 if [[ $(id -u) -ne 0 ]] ; then echo "Please run as root" ; exit 1 ; fi
 
-echo -n "Installing BlueALSA"
+echo "Installing BlueALSA"
 #echo
 #echo -n "Do you want to stream audio via bluetooth (BlueALSA)? [y/N] "
 #read REPLY
@@ -105,3 +105,4 @@ cat <<'EOF' > /etc/udev/rules.d/99-bluetooth-udev.rules
 SUBSYSTEM=="input", GROUP="input", MODE="0660"
 KERNEL=="input[0-9]*", RUN+="/usr/local/bin/bluetooth-udev"
 EOF
+echo "Finished."
