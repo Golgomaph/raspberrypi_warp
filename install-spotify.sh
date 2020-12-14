@@ -2,7 +2,6 @@
 
 if [[ $(id -u) -ne 0 ]] ; then echo "Please run as root" ; exit 1 ; fi
 
-echo
 echo -n "Installing raspotify"
 #echo
 #echo -n "Do you want to see RasPi as streaming device in Spotify (Raspotify)? [y/N] "
