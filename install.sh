@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+echo
+echo "Choose hostname"
+echo "---------------------------------------------"
 read -p "Hostname [$(hostname)]: " HOSTNAME
 sudo raspi-config nonint do_hostname ${HOSTNAME:-$(hostname)}
 
@@ -16,16 +19,16 @@ sudo apt upgrade -y
 echo
 echo "Choosing functions"
 echo "---------------------------------------------"
-echo "Do you want to.."
-echo -n "..stream audio via bluetooth (BlueALSA)? [y/N] "
+echo "Do you want to..."
+echo -n "  ...stream audio via bluetooth (BlueALSA)? [y/N] "
 read REPLYBLUETOOTH
-echo -n "..stream audio via WiFi-UPnP (gmrender-resurrect)? [y/N] "
+echo -n "  ...stream audio via WiFi-UPnP (gmrender-resurrect)? [y/N] "
 read REPLYUPNP
-echo -n "..stream audio via Apple AirPlay (shairport-sync)? [y/N] "
+echo -n "  ...stream audio via Apple AirPlay (shairport-sync)? [y/N] "
 read REPLYSHAIRPORT
-echo -n "..see RasPi as streaming device in Spotify (Raspotify)? [y/N] "
+echo -n "  ...see RasPi as streaming device in Spotify (Raspotify)? [y/N] "
 read REPLYSPOTIFY
-echo -n "..use multi-room functionality using more then one RasPi (snapclient})? [y/N] "
+echo -n "  ...use multi-room functionality using more then one RasPi (snapclient})? [y/N] "
 read REPLYSNAPCAST
 
 echo
