@@ -3,11 +3,11 @@
 if [[ $(id -u) -ne 0 ]] ; then echo "Please run as root" ; exit 1 ; fi
 
 echo
-echo -n "----------------------------------------------------------------"
-echo
-echo -n "Do you want to stream audio via bluetooth (BlueALSA)? [y/N] "
-read REPLY
-if [[ ! "$REPLY" =~ ^(yes|y|Y)$ ]]; then exit 0; fi
+echo -n "Installing BlueALSA"
+#echo
+#echo -n "Do you want to stream audio via bluetooth (BlueALSA)? [y/N] "
+#read REPLY
+#if [[ ! "$REPLY" =~ ^(yes|y|Y)$ ]]; then exit 0; fi
 
 apt install -y --no-install-recommends alsa-base alsa-utils bluealsa bluez-tools
 
