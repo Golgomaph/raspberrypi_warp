@@ -2,7 +2,7 @@
 
 if [[ $(id -u) -ne 0 ]] ; then echo "Please run as root" ; exit 1 ; fi
 
-echo -n "Installing shairport-sync"
+echo "Installing shairport-sync"
 #echo
 #echo -n "Do you want to stream audio via Apple AirPlay (shairport-sync)? [y/N] "
 #read REPLY
@@ -38,3 +38,4 @@ sessioncontrol = {
 EOF
 
 systemctl enable --now shairport-sync
+echo "Finished."
