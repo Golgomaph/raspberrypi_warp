@@ -24,11 +24,11 @@ echo -n "Do you want to use multi-room functionality using more then one RasPi (
 read REPLYSNAPCAST
 
 echo "Installing components"
-if [[ "$REPLYBLUETOOTH" =~ ^(yes|y|Y)$ ]] then sudo ./install-bluetooth.sh
-if [[ "$REPLYUPNP" =~ ^(yes|y|Y)$ ]] then sudo ./install-upnp.sh
-if [[ "$REPLYSHAIRPORT" =~ ^(yes|y|Y)$ ]] then sudo ./install-shairport.sh
-if [[ "$REPLYSPOTIFY" =~ ^(yes|y|Y)$ ]] then sudo ./install-spotify.sh
-if [[ "$REPLYSNAPCAST" =~ ^(yes|y|Y)$ ]] then sudo ./install-snapcast-client.sh
+if [[ "$REPLYBLUETOOTH" =~ ^(yes|y|Y)$ ]]; then sudo ./install-bluetooth.sh
+if [[ "$REPLYUPNP" =~ ^(yes|y|Y)$ ]]; then sudo ./install-upnp.sh
+if [[ "$REPLYSHAIRPORT" =~ ^(yes|y|Y)$ ]]; then sudo ./install-shairport.sh
+if [[ "$REPLYSPOTIFY" =~ ^(yes|y|Y)$ ]]; then sudo ./install-spotify.sh
+if [[ "$REPLYSNAPCAST" =~ ^(yes|y|Y)$ ]]; then sudo ./install-snapcast-client.sh
 
 #sudo ./install-pivumeter.sh
 #sudo ./enable-hifiberry.sh
