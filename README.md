@@ -10,8 +10,6 @@ This is a inofficial improvment of nico kaisers rpi-audio-receiver.
 
 The installation script asks whether to install each component.
 
-    sudo apt-get update
-    #sudo apt-get upgrade (CURRENTLY DEACTIVATED DUE TO WIFI-ERROR ON NEWEST KERNEL FOR RASPI 3)
     sudo apt-get install git
     git clone https://github.com/Golgomaph/simpleaudio.git
     cd simpleaudio
