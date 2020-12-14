@@ -2,7 +2,7 @@
 
 if [[ $(id -u) -ne 0 ]] ; then echo "Please run as root" ; exit 1 ; fi
 
-echo -n "Installing gmrender-resurrect"
+echo "Installing gmrender-resurrect"
 #echo
 #echo -n "Do you want to stream audio via WiFi-UPnP (gmrender-resurrect)? [y/N] "
 #read REPLY
@@ -22,3 +22,4 @@ ALSA_DEVICE="sysdefault"
 EOF
 
 systemctl enable --now gmediarender
+echo "Finished."
