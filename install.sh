@@ -30,6 +30,8 @@ echo -n "  ...see RasPi as streaming device in Spotify (Raspotify)? [y/N] "
 read REPLYSPOTIFY
 echo -n "  ...use multi-room functionality using more then one RasPi (snapclient})? [y/N] "
 read REPLYSNAPCAST
+echo -n "  ...generate wifi access-point if no known wifi is available? [y/N] "
+read REPLYSAUTOAP
 
 echo
 echo "Installing components"
@@ -39,6 +41,8 @@ if [[ "$REPLYUPNP" =~ ^(yes|y|Y)$ ]]; then sudo ./install-upnp.sh; fi;
 if [[ "$REPLYSHAIRPORT" =~ ^(yes|y|Y)$ ]]; then sudo ./install-shairport.sh; fi;
 if [[ "$REPLYSPOTIFY" =~ ^(yes|y|Y)$ ]]; then sudo ./install-spotify.sh; fi;
 if [[ "$REPLYSNAPCAST" =~ ^(yes|y|Y)$ ]]; then sudo ./install-snapcast-client.sh; fi;
+if [[ "$REPLYSNAPCAST" =~ ^(yes|y|Y)$ ]]; then sudo ./install-autoap.sh; fi;
+
 
 #sudo ./install-pivumeter.sh
 #sudo ./enable-hifiberry.sh
