@@ -41,7 +41,7 @@ if [[ "$REPLYUPNP" =~ ^(yes|y|Y)$ ]]; then sudo ./install-upnp.sh; fi;
 if [[ "$REPLYSHAIRPORT" =~ ^(yes|y|Y)$ ]]; then sudo ./install-shairport.sh; fi;
 if [[ "$REPLYSPOTIFY" =~ ^(yes|y|Y)$ ]]; then sudo ./install-spotify.sh; fi;
 if [[ "$REPLYSNAPCAST" =~ ^(yes|y|Y)$ ]]; then sudo ./install-snapcast-client.sh; fi;
-if [[ "$REPLYAUTOAP" =~ ^(yes|y|Y)$ ]]; then sudo ./install-autoap.sh; fi;
+if [[ "$REPLYAUTOAP" =~ ^(yes|y|Y)$ ]]; then yes | ./install-autoap.sh; fi;
 
 
 #sudo ./install-pivumeter.sh
