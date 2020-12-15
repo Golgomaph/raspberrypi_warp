@@ -11,6 +11,8 @@ sudo npm install bower -g
 #sudo apt-get install isc-dhcp-server
 echo "Install git"
 sudo apt-get install git
+echo "cd"
+cd
 echo "Git clone"
 git clone https://github.com/sabhiram/raspberry-wifi-conf.git
 echo "cd raspberry-wifi-conf"
