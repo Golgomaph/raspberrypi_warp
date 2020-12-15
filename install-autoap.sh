@@ -18,3 +18,5 @@ sudo cp assets/init.d/raspberry-wifi-conf /etc/init.d/raspberry-wifi-conf
 sudo chmod +x /etc/init.d/raspberry-wifi-conf
 sudo systemctl unmask hostapd
 sudo systemctl enable hostapd
+echo "Finished."
+echo "~"
