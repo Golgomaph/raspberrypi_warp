@@ -17,8 +17,8 @@ echo "cd raspberry-wifi-conf"
 cd raspberry-wifi-conf
 echo "npm update"
 npm update
-echo "bower install --allow-root"
-bower install
+echo "bower --allow-root install"
+bower --allow-root install
 echo "npm run-script provision"
 sudo npm run-script provision
 echo "npm start"
