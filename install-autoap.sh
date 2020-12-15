@@ -29,6 +29,8 @@ echo "cp assets/init.d/raspberry-wifi-conf /etc/init.d/raspberry-wifi-conf"
 sudo cp assets/init.d/raspberry-wifi-conf /etc/init.d/raspberry-wifi-conf
 echo "sudo chmod +x /etc/init.d/raspberry-wifi-conf"
 sudo chmod +x /etc/init.d/raspberry-wifi-conf
+echo "sudo update-rc.d raspberry-wifi-conf defaults"
+sudo update-rc.d raspberry-wifi-conf defaults
 echo "sudo systemctl unmask hostapd"
 sudo systemctl unmask hostapd
 echo "sudo systemctl enable hostapd"
