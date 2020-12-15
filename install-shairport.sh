@@ -39,3 +39,4 @@ EOF
 
 systemctl enable --now shairport-sync
 echo "Finished."
+echo "~"
