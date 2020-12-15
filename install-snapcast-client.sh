@@ -10,3 +10,4 @@ echo "Installing snapclient"
 
 apt install --no-install-recommends -y snapclient
 echo "Finished."
+echo "~"
