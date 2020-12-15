@@ -15,23 +15,23 @@ echo "cd"
 cd
 echo "Git clone"
 git clone https://github.com/sabhiram/raspberry-wifi-conf.git
-echo "cd raspberry-wifi-conf"
-cd raspberry-wifi-conf
-echo "npm update"
-npm update
-echo "bower --allow-root install"
-bower --allow-root install
-echo "npm run-script provision"
-sudo npm run-script provision
-echo "npm start"
-sudo npm start
-echo "cp assets/init.d/raspberry-wifi-conf /etc/init.d/raspberry-wifi-conf"
-sudo cp assets/init.d/raspberry-wifi-conf /etc/init.d/raspberry-wifi-conf
-echo "sudo chmod +x /etc/init.d/raspberry-wifi-conf"
-sudo chmod +x /etc/init.d/raspberry-wifi-conf
-echo "sudo systemctl unmask hostapd"
-sudo systemctl unmask hostapd
-echo "sudo systemctl enable hostapd"
-sudo systemctl enable hostapd
+#echo "cd raspberry-wifi-conf"
+#cd raspberry-wifi-conf
+#echo "npm update"
+#npm update
+#echo "bower --allow-root install"
+#bower --allow-root install
+#echo "npm run-script provision"
+#sudo npm run-script provision
+#echo "npm start"
+#sudo npm start
+#echo "cp assets/init.d/raspberry-wifi-conf /etc/init.d/raspberry-wifi-conf"
+#sudo cp assets/init.d/raspberry-wifi-conf /etc/init.d/raspberry-wifi-conf
+#echo "sudo chmod +x /etc/init.d/raspberry-wifi-conf"
+#sudo chmod +x /etc/init.d/raspberry-wifi-conf
+#echo "sudo systemctl unmask hostapd"
+#sudo systemctl unmask hostapd
+#echo "sudo systemctl enable hostapd"
+#sudo systemctl enable hostapd
 echo "Finished."
 echo "~"
