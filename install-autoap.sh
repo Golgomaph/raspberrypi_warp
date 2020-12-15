@@ -4,15 +4,15 @@ if [[ $(id -u) -ne 0 ]] ; then echo "Please run as root" ; exit 1 ; fi
 
 echo "Installing Auto Access Point"
 
-echo "Install npm"
-sudo apt-get -f install npm
-echo "Install bower"
-sudo npm install bower -g
-#sudo apt-get install isc-dhcp-server
-echo "Install git"
-sudo apt-get install git
-echo "cd"
-cd
+#echo "Install npm"
+#sudo apt-get -f install npm
+#echo "Install bower"
+#sudo npm install bower -g
+##sudo apt-get install isc-dhcp-server
+#echo "Install git"
+#sudo apt-get install git
+#echo "cd"
+cd ~
 echo "Git clone"
 git clone https://github.com/sabhiram/raspberry-wifi-conf.git
 #echo "cd raspberry-wifi-conf"
