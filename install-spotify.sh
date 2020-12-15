@@ -20,3 +20,4 @@ BITRATE="320"
 VOLUME_ARGS="--linear-volume --initial-volume=100"
 EOF
 echo "Finished."
+echo "~"
