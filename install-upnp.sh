@@ -23,3 +23,4 @@ EOF
 
 systemctl enable --now gmediarender
 echo "Finished."
+echo "~"
