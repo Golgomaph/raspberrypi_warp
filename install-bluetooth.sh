@@ -90,12 +90,12 @@ action=$(expr "$ACTION" : "\([a-zA-Z]\+\).*")
 if [ "$action" = "add" ]; then
     bluetoothctl discoverable off
     # disconnect wifi to prevent dropouts
-    #ifconfig wlan0 down &
+    ifconfig wlan0 down &
 fi
 
 if [ "$action" = "remove" ]; then
     # reenable wifi
-    #ifconfig wlan0 up &
+    ifconfig wlan0 up &
     bluetoothctl discoverable on
 fi
 EOF
