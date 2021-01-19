@@ -1,6 +1,9 @@
 #!/bin/bash -e
 
 echo
+echo "Select new Passwor"
+echo "---------------------------------------------"
+sudo passwd pi
 echo "Choose hostname"
 echo "---------------------------------------------"
 read -p "Hostname [$(hostname)]: " HOSTNAME
