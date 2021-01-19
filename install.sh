@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 echo
-if [ counter!=1 ]; then
+if [ passwd != "raspberry" ]; then
 echo "Select new passwort"
 echo "---------------------------------------------"
 sudo passwd pi;
