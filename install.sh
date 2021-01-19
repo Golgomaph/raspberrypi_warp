@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 echo
-echo "Select new Passwor"
+echo "Select new passwort"
 echo "---------------------------------------------"
 sudo passwd pi
 echo "Choose hostname"
