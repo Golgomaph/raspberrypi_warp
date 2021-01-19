@@ -1,7 +1,6 @@
 #!/bin/bash -e
 
 echo
-if [[ "$REPLYBLUETOOTH" =~ ^(yes|y|Y)$ ]]; then sudo ./install-bluetooth.sh; fi;
 if [ counter!=1 ]; then
 echo "Select new passwort"
 echo "---------------------------------------------"
