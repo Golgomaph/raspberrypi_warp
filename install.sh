@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
-echo
-if [ passwd != "raspberry" ]; then
+echo counter
+if [ counter != 1 ]; then
 echo "Select new passwort"
 echo "---------------------------------------------"
 sudo passwd pi;
@@ -52,5 +52,5 @@ if [[ "$REPLYAUTOAP" =~ ^(yes|y|Y)$ ]]; then yes | ./install-autoap.sh; fi;
 #sudo ./install-pivumeter.sh
 #sudo ./enable-hifiberry.sh
 #sudo ./enable-read-only.sh
-counter=1;
+counter=1
 sudo ./rebootafterfinish.sh
