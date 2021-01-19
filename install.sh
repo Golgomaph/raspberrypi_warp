@@ -1,11 +1,12 @@
 #!/bin/bash -e
 
 echo
-if [ counter!=1 ];
+if [[ "$REPLYBLUETOOTH" =~ ^(yes|y|Y)$ ]]; then sudo ./install-bluetooth.sh; fi;
+if [ counter!=1 ]; then
 echo "Select new passwort"
 echo "---------------------------------------------"
-sudo passwd pi
-fi
+sudo passwd pi;
+fi;
 echo "Choose hostname"
 echo "---------------------------------------------"
 read -p "Hostname [$(hostname)]: " HOSTNAME
