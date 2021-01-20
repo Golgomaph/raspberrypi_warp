@@ -1,7 +1,9 @@
 #!/bin/bash -e
 
-echo counter
-if [ counter != 1 ]; then
+if (!(systemctl -q is-enabled bluealsa-aplay) &&
+!(systemctl -q is-enabled hostapd) &&
+!(systemctl -q is-enabled shairport-sync) &&
+!(systemctl -q is-enabled gmediarender)) then
 echo "Select new passwort"
 echo "---------------------------------------------"
 sudo passwd pi;
@@ -52,5 +54,4 @@ if [[ "$REPLYAUTOAP" =~ ^(yes|y|Y)$ ]]; then yes | ./install-autoap.sh; fi;
 #sudo ./install-pivumeter.sh
 #sudo ./enable-hifiberry.sh
 #sudo ./enable-read-only.sh
-counter=1
 sudo ./rebootafterfinish.sh
