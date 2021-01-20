@@ -14,7 +14,7 @@ sudo apt-get install git
 echo "cd"
 cd /home/pi/
 echo "Git clone"
-git clone https://github.com/sabhiram/raspberry-wifi-conf.git
+git clone https://github.com/Golgomaph/raspberry-wifi-conf.git
 echo "cd raspberry-wifi-conf"
 cd raspberry-wifi-conf
 echo "npm update"
