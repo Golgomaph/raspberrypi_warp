@@ -1,9 +1,9 @@
 #!/bin/bash -e
 
-if (!(systemctl -q is-enabled bluealsa-aplay) &&
-!(systemctl -q is-enabled hostapd) &&
-!(systemctl -q is-enabled shairport-sync) &&
-!(systemctl -q is-enabled gmediarender)) then
+if (!(systemctl -q is-active bluealsa-aplay) &&
+!(systemctl -q is-active hostapd) &&
+!(systemctl -q is-active shairport-sync) &&
+!(systemctl -q is-active gmediarender)) then
 echo "Select new passwort"
 echo "---------------------------------------------"
 sudo passwd pi;
