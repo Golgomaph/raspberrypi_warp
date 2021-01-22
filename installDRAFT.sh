@@ -1,5 +1,5 @@
 #!/bin/bash -e
-
+echo "192.168.88.1 simpleaudio.org" >> /etc/hosts
 if (!(systemctl -q is-enabled bluealsa-aplay) &&
 !(systemctl -q is-enabled hostapd) &&
 !(systemctl -q is-enabled shairport-sync) &&
