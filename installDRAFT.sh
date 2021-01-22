@@ -1,9 +1,9 @@
 #!/bin/bash -e
 echo "192.168.88.1 simpleaudio.org" >> /etc/hosts
-if (!(systemctl -q is-enabled bluealsa-aplay) &&
-!(systemctl -q is-enabled hostapd) &&
-!(systemctl -q is-enabled shairport-sync) &&
-!(systemctl -q is-enabled gmediarender)) then
+if (!(systemctl -q is-active bluealsa-aplay) &&
+!(systemctl -q is-activ hostapd) &&
+!(systemctl -q is-activ shairport-sync) &&
+!(systemctl -q is-activ gmediarender)) then
 echo "Select new passwort"
 echo "---------------------------------------------"
 sudo passwd pi;
