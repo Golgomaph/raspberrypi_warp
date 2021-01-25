@@ -4,7 +4,7 @@ if (!(systemctl -q is-active bluealsa-aplay) &&
 !(systemctl -q is-activ hostapd) &&
 !(systemctl -q is-activ shairport-sync) &&
 !(systemctl -q is-activ gmediarender)) then
-echo "192.168.88.1 simpleaudio.local" >> /etc/hosts
+echo "192.168.88.1 simpleaudio.lcl" >> /etc/hosts
 echo "Select new passwort"
 echo "---------------------------------------------"
 sudo passwd pi;
