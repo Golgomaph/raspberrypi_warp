@@ -1,5 +1,4 @@
 #!/bin/bash -e
-file =passcheck.txt
 
 if [ ! -f /etc/passcheck ] then
 
