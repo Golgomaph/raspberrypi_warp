@@ -3,7 +3,7 @@ file =passcheck.txt
 
 if [ ! -f /etc/passcheck ] then
 
-echo "192.168.88.1 simple.audio" > /etc/hosts
+echo "192.168.88.1 simple.audio" >> /etc/hosts
 echo "Select new passwort"
 echo "---------------------------------------------"
 sudo passwd pi;
