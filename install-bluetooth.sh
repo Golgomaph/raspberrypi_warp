@@ -90,13 +90,13 @@ action=$(expr "$ACTION" : "\([a-zA-Z]\+\).*")
 if [ "$action" = "add" ]; then
     bluetoothctl discoverable off
     # disconnect wifi to prevent dropout
-    #systemctl disable -- now gmediarender &
+    sudo service gmediarender stop
     sudo service shairport-sync stop
 fi
 if [ "$action" = "remove" ]; then
     # reenable wifi
-    #systemctl enabel -- now gmediarender &
     sudo service shairport-sync start
+    sudo service gmediarender start
     bluetoothctl discoverable on
 fi
 
