@@ -90,16 +90,18 @@ action=$(expr "$ACTION" : "\([a-zA-Z]\+\).*")
 if [ "$action" = "add" ]; then
     bluetoothctl discoverable off
     # disconnect wifi to prevent dropouts
-    systemctl disable -- now gmediarender &
-    systemctl disable -- now shairport &
+    ifconfig wlan0 down &
+    #systemctl disable -- now gmediarender &
+    #systemctl disable -- now shairport &
 fi
-
 if [ "$action" = "remove" ]; then
     # reenable wifi
-    systemctl enabel -- now gmediarender &
-    systemctl enable -- now shairport &
+    #systemctl enabel -- now gmediarender &
+    #systemctl enable -- now shairport &
+    ifconfig wlan0 up &
     bluetoothctl discoverable on
 fi
+
 EOF
 chmod 755 /usr/local/bin/bluetooth-udev
 
