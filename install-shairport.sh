@@ -33,8 +33,8 @@ alsa = {
 }
 
 sessioncontrol = {
-  run_this_before_play_begins = "/etc/bt_end.sh";
-  run_this_after_play_ends = "/etc/bt_start.sh";
+  run_this_before_play_begins = "/usr/bin/sudo service bluealsa-aplay stop";
+  run_this_after_play_ends = "/usr/bin/sudo service bluealsa-aplay start";
   wait_for_completion = "yes";
   session_timeout = 20;
 };
