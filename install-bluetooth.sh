@@ -8,7 +8,7 @@ echo "Installing BlueALSA"
 #read REPLY
 #if [[ ! "$REPLY" =~ ^(yes|y|Y)$ ]]; then exit 0; fi
 
-apt install -y --no-install-recommends alsa-base alsa-utils bluealsa bluez-tools
+apt install -y ----enable-aptx --enable-aptx-hd --enable-aac alsa-base alsa-utils bluealsa bluez-tools
 
 # Bluetooth settings
 cat <<'EOF' > /etc/bluetooth/main.conf
